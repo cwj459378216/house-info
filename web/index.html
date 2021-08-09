@@ -44,6 +44,7 @@
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/TypewriterJS/1.0.0/typewriter.min.js"></script>
 <script>
+    let info = [];
     var app = document.getElementById('asklz');
     console.log(app)
     var typewriter = new Typewriter(asklz, {
@@ -80,13 +81,41 @@
                             </div>
                             <button  class="btn btn-primary submit" >提交</button>`
 
-    $('#form').on('click', '.submit', function() {
+    $('#form').on('click', '.submit', function () {
         var formData = document.getElementById('form');
         // console.log(formData.elements[0].value)
         // console.log(formData.elements['address'].value)
-        typewriter.typeString(`<div>${formData.elements[0].value}</div>`).pauseFor(2500).start();
+        let param = {};
+        for (const i of formData.elements) {
+            if (i.name) {
+                param[i.name] = i.value;
+            }
+        }
+        $.ajax({
+            url: 'http://localhost:8009//houser//insert',
+            type: 'post',
+            contentType: "application/json",
+            data: JSON.stringify({
+                infoJson: JSON.stringify(param)
+            }),
+            success: (data) => {
+                console.log(data)
+            }
+        })
+        typewriter.typeString(JSON.stringify(param)).pauseFor(2500).start();
         formData.reset();
         return false
+    })
+
+    $.ajax({
+        url: 'http://localhost:8009//houser//query-info',
+        type: 'get',
+        success: (data) => {
+            console.log(data)
+            if (data.length > 0) {
+                info = JSON.parse(data[0].infoJson);
+            }
+        }
     })
 </script>
 

@@ -82,7 +82,7 @@
 <script type="text/javascript" language="javascript" src="http://code.jquery.com/jquery-1.12.4.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous">
-    </script>
+</script>
 <script type="text/javascript" language="javascript"
     src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
 
@@ -94,6 +94,7 @@
     let info = [];
     let table;
     const url = 'http://194.5.79.15:8009'
+
     function openModal() {
         var form = document.getElementById('form');
         form.innerHTML = ` <div class="row mb-3">
@@ -233,17 +234,15 @@
     function created() {
         table = $('#table').DataTable({
             dom: 'Bfrtip',
-            buttons:[
-                {
-                    extend: 'csv',
-                    text: 'CSV',
-                    bom: true
-                },{
-                    extend: 'print',
-                    text: 'Print',
-                    bom: true
-                }
-            ],
+            buttons: [{
+                extend: 'csv',
+                text: 'CSV',
+                bom: true
+            }, {
+                extend: 'print',
+                text: 'Print',
+                bom: true
+            }],
             "ajax": (data, callback, settings) => {
                 $.ajax({
                     url: url + '//houser//query-info',
@@ -255,7 +254,8 @@
                         const arr = [];
                         for (const i of data) {
                             const info = JSON.parse(i.infoJson);
-                            info.action = `<button type="button" class="btn btn-outline-warning btn-del" data-id="${i.id}">删除</button>`
+                            info.action =
+                                `<button type="button" class="btn btn-outline-warning btn-del" data-id="${i.id}">删除</button>`
                             arr.push(info);
                         }
                         callback({
@@ -265,24 +265,59 @@
                     }
                 })
             },
-            "columns": [
-                { "data": "小区名字" },
-                { "data": "首付" },
-                { "data": "离地铁站距离" },
-                { "data": "小区环境" },
-                { "data": "有没有电梯" },
-                { "data": "小区是那年的" },
-                { "data": "周边设施（学校，商场）" },
-                { "data": "层高" },
-                { "data": "最高楼层" },
-                { "data": "物业费" },
-                { "data": "建筑面积" },
-                { "data": "实际面积" },
-                { "data": "公摊面积" },
-                { "data": "朝向" },
-                { "data": "时间", width: "200px" },
-                { "data": "评分", class: 'red' },
-                { "data": "action" },
+            "columns": [{
+                    "data": "小区名字"
+                },
+                {
+                    "data": "首付"
+                },
+                {
+                    "data": "离地铁站距离"
+                },
+                {
+                    "data": "小区环境"
+                },
+                {
+                    "data": "有没有电梯"
+                },
+                {
+                    "data": "小区是那年的"
+                },
+                {
+                    "data": "周边设施（学校，商场）"
+                },
+                {
+                    "data": "层高"
+                },
+                {
+                    "data": "最高楼层"
+                },
+                {
+                    "data": "物业费"
+                },
+                {
+                    "data": "建筑面积"
+                },
+                {
+                    "data": "实际面积"
+                },
+                {
+                    "data": "公摊面积"
+                },
+                {
+                    "data": "朝向"
+                },
+                {
+                    "data": "时间",
+                    width: "200px"
+                },
+                {
+                    "data": "评分",
+                    class: 'red'
+                },
+                {
+                    "data": "action"
+                },
             ],
             initComplete: (data) => {
                 boundDel()
@@ -292,7 +327,7 @@
 
     function boundDel() {
         $('#table').off('click', '.btn-del');
-        $('#table').on('click', '.btn-del', function() {
+        $('#table').on('click', '.btn-del', function () {
             console.log($(this).attr('data-id'))
             $.ajax({
                 url: url + '//houser?id=' + $(this).attr('data-id'),
@@ -304,22 +339,22 @@
         })
     }
 
-    Date.prototype.Format = function (fmt) { 
+    Date.prototype.Format = function (fmt) {
         var o = {
-            "M+": this.getMonth() + 1, 
-            "d+": this.getDate(), 
-            "H+": this.getHours(), 
-            "m+": this.getMinutes(), 
-            "s+": this.getSeconds(), 
-            "q+": Math.floor((this.getMonth() + 3) / 3), 
-            "S": this.getMilliseconds() 
+            "M+": this.getMonth() + 1,
+            "d+": this.getDate(),
+            "H+": this.getHours(),
+            "m+": this.getMinutes(),
+            "s+": this.getSeconds(),
+            "q+": Math.floor((this.getMonth() + 3) / 3),
+            "S": this.getMilliseconds()
         };
         if (/(y+)/.test(fmt)) fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
         for (var k in o)
-            if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
+            if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) :
+                (("00" + o[k]).substr(("" + o[k]).length)));
         return fmt;
     }
-
 </script>
 
 </html>

@@ -28,4 +28,9 @@ public class HouseInfoServiceImpl implements HouseInfoService{
         houseInfoMapper.insert(houseInfo);
         return houseInfo;
     }
+
+    @Override
+    public void deleteById(Integer id) {
+        houseInfoMapper.deleteById(id);
+    }
 }

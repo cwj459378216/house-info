@@ -12,4 +12,6 @@ public interface HouseInfoService {
     List<HouseInfo> queryAll();
 
     HouseInfo insert(HouseInfo houseInfo);
+
+    void deleteById(Integer id);
 }

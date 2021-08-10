@@ -26,4 +26,9 @@ public class HouseInfoController {
     public HouseInfo insert(@RequestBody HouseInfo houseInfo) {
         return houseInfoService.insert(houseInfo);
     }
+
+    @DeleteMapping()
+    public void deleteById(@RequestParam Integer id) {
+        houseInfoService.deleteById(id);
+    }
 }

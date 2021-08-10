@@ -21,6 +21,7 @@
         }
     </style>
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.15/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.7.1/css/buttons.dataTables.min.css">
 </head>
 
 <body>
@@ -84,6 +85,10 @@
     </script>
 <script type="text/javascript" language="javascript"
     src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
+
+<script src="https://cdn.datatables.net/buttons/1.7.1/js/dataTables.buttons.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.7.1/js/buttons.html5.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.7.1/js/buttons.print.min.js"></script>
 
 <script>
     let info = [];
@@ -227,6 +232,18 @@
 
     function created() {
         table = $('#table').DataTable({
+            dom: 'Bfrtip',
+            buttons:[
+                {
+                    extend: 'csv',
+                    text: 'CSV',
+                    bom: true
+                },{
+                    extend: 'print',
+                    text: 'Print',
+                    bom: true
+                }
+            ],
             "ajax": (data, callback, settings) => {
                 $.ajax({
                     url: url + '//houser//query-info',
